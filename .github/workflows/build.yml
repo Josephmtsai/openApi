@@ -1,0 +1,17 @@
+name: Build to Heroku
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    name: buildFile
+    runs-on: ubuntu-latest
+    steps:
+      - name: CheckOut Source
+        uses: actions/checkout@v2
+      - name: Setting .Net 5.0
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: '5.0'
+      - run: dotnet build
