@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using NLog;
 using NLog.Web;
+using provider.InfraStructure.Log;
 
 namespace provider
 {
@@ -9,8 +10,12 @@ namespace provider
     {
         public static void Main(string[] args)
         {
-            var logger = NLog.LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
-            logger.Info("[SERVER]init main");
+            Logger logger = NLog.LogManager.Setup()
+               .SetupExtensions(s => s.AutoLoadAssemblies(false).RegisterLayoutRenderer<ElapsedTimeLayoutRenderer>("elapsed-time")                                                               
+               )
+               .RegisterNLogWeb()
+               .LoadConfigurationFromFile("nlog.config")
+               .GetCurrentClassLogger();
             CreateHostBuilder(args).Build().Run();
         }
 
@@ -19,6 +24,6 @@ namespace provider
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                }).UseNLog();
     }
 }

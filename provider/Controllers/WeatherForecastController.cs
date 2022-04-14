@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using provider.InfraStructure.Log;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace provider.Controllers
 {
@@ -16,11 +17,12 @@ namespace provider.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ILogger<WeatherForecast> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecast> ilogger)
         {
-            _logger = logger;
+            _logger = ilogger;
+            LogExtensions.ServerLog(_logger, "Controller", "Init", "Consturt", "");
         }
 
         [HttpGet]
@@ -35,5 +37,6 @@ namespace provider.Controllers
             })
             .ToArray();
         }
+
     }
 }
