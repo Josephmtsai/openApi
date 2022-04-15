@@ -19,4 +19,4 @@ RUN dotnet publish "provider.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-CMD ASPNETCORE_URLS=http://*:$PORT dotnet NetCoreReactHeroku.dll
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet provider.dll
