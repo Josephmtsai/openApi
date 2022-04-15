@@ -18,3 +18,11 @@ jobs:
         run: dotnet restore
       - name: Build
         run: dotnet build --configuration Release --no-restore
+      # Build Docker image
+      - name: Docker build
+        run: docker login --username=_ --password=${{secrets.HEROKU_API_KEY}} registry.heroku.com
+      # Push the Docker image to Heroku Container Registry
+      - name: Publish
+        run: |
+          heroku container:push web -a ${{secrets.APP_NAME}}
+          heroku container:release web -a ${{secrets.APP_NAME}}
