@@ -7,6 +7,11 @@ namespace provider.Controllers
     [ApiController]
     public class ExChangeRateController : ControllerBase
     {
-
+        [HttpGet]
+        
+        public string GetExchangeRate()
+        {
+            return "OK";
+        }
     }
 }
