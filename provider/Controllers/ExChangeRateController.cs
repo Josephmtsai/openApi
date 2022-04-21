@@ -3,7 +3,7 @@
 
 namespace provider.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class ExChangeRateController : ControllerBase
     {

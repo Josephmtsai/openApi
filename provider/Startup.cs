@@ -6,6 +6,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using provider.InfraStructure.Log;
 using provider.InfraStructure.Middleware;
+using provider.InfraStructure.Service;
+using provider.Model.LineBot;
+using System;
 
 namespace provider
 {
@@ -21,7 +24,12 @@ namespace provider
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddHttpClient<GitHubService>();
+            services.AddSingleton<LineBotConfig, LineBotConfig>((s) => new LineBotConfig()
+            {
+                ChannelAccessToken = Environment.GetEnvironmentVariable("LineChannelAccessToken"),
+                ChannelSecret = Environment.GetEnvironmentVariable("LineChannelSecret")
+            });
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

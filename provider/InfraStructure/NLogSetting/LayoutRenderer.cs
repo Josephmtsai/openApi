@@ -15,7 +15,7 @@ namespace provider.InfraStructure.Log
             var lastTimeStamp = _lastTimeStamp ?? logEvent.TimeStamp;
             var elapsedTime = logEvent.TimeStamp - lastTimeStamp;
             var elapsedTimeString = $"{elapsedTime.TotalSeconds:f4}";
-            builder.Append($"[{elapsedTimeString}]");
+            builder.Append($"{elapsedTimeString}");
             _lastTimeStamp = logEvent.TimeStamp;
         }
     }

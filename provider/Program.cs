@@ -3,6 +3,8 @@ using Microsoft.Extensions.Hosting;
 using NLog;
 using NLog.Web;
 using provider.InfraStructure.Log;
+using System;
+using System.Collections;
 
 namespace provider
 {
@@ -10,6 +12,7 @@ namespace provider
     {
         public static void Main(string[] args)
         {
+
             Logger logger = NLog.LogManager.Setup()
                .SetupExtensions(s => s.AutoLoadAssemblies(false).RegisterLayoutRenderer<ElapsedTimeLayoutRenderer>("elapsed-time")                                                               
                )
