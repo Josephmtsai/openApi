@@ -25,7 +25,7 @@ namespace provider.Controllers
         [HttpGet]
         public IActionResult LineBotTest()
         {
-            LogExtensions.ServerLog(_logger, "Config", _lineBotConfig.ChannelAccessToken);
+            LogExtensions.ServerLog(_logger, "Config", _lineBotConfig.ChannelAccessToken,"","");
             return Ok("Testing");
         }
     }
