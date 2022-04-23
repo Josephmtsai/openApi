@@ -1,6 +1,7 @@
 ﻿using isRock.LineBot;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using provider.InfraStructure.ActionFilter;
 using provider.InfraStructure.Log;
 using provider.Model.LineBot;
 using System;
@@ -21,6 +22,7 @@ namespace provider.Controllers
             _logger = ilogger;
         }
         [HttpPost]
+        [LineVerifySignature]
         public async Task<IActionResult> LineBotCallBack(dynamic request)
         {
 
@@ -31,7 +33,6 @@ namespace provider.Controllers
                 var ReceivedMessage = isRock.LineBot.Utility.Parsing(rawData);
                 var item = ReceivedMessage.events.FirstOrDefault();
                 string Message = "";
-
                 switch (item.type)
                 {
                     case "join":
