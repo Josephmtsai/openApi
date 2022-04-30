@@ -18,5 +18,10 @@ namespace provider.InfraStructure.Log
             logger.LogInformation($"[SERVER][{method}][{miliSeconds}]{message}");
         }
 
+        public static void RequestLog<T>(this ILogger<T> logger, string httpMethod, string method, string refereralUrl, string data, string message =null)
+        {
+            logger.LogInformation($"[Request][{httpMethod}][{method}][{refereralUrl}]{data} - {message}");
+        }
+
     }
 }

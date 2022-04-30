@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using provider.InfraStructure.ActionFilter;
 using provider.InfraStructure.Log;
 using provider.InfraStructure.Middleware;
 using provider.InfraStructure.Service;
@@ -25,6 +26,11 @@ namespace provider
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpClient<GitHubService>();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(RequestLogActionFilter));
+                options.Filters.Add(typeof(ResponseLogActionFilter));
+            });
             services.AddSingleton<LineBotConfig, LineBotConfig>((s) => new LineBotConfig()
             {
                 ChannelAccessToken = Environment.GetEnvironmentVariable("LineChannelAccessToken"),
