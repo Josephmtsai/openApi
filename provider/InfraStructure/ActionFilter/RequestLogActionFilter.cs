@@ -36,8 +36,10 @@ namespace provider.InfraStructure.ActionFilter
             {
                 case "POST":
                 case "PUT":
-                    var safeObject = context.ActionArguments[context.ActionArguments.Keys.ElementAt(0)];
-                    paseredStr = JsonConvert.SerializeObject(safeObject, Formatting.None, new RequestJsonConverter());
+                    if (context.ActionArguments.Keys.Count > 0 ) {
+                        var safeObject = context.ActionArguments[context.ActionArguments.Keys.ElementAt(0)];
+                        paseredStr = JsonConvert.SerializeObject(safeObject, Formatting.None, new RequestJsonConverter());
+                    }
                     break;
 
                 case "GET":
