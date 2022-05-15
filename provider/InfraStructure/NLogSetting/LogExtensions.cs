@@ -23,5 +23,10 @@ namespace provider.InfraStructure.Log
             logger.LogInformation($"[Request][{httpMethod}][{method}][{refereralUrl}]{data} - {message}");
         }
 
+        public static void ErrorLog<T>(this ILogger<T> logger, string name, string stackTrace, string message = null)
+        {
+            logger.LogInformation($"[Error][{name}][{stackTrace}]{message}");
+        }
+
     }
 }
