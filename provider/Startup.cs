@@ -30,7 +30,7 @@ namespace provider
                 options.AddPolicy("AllowHostList",
                     policy =>
                     {
-                        policy.WithOrigins("*")
+                        policy.AllowAnyOrigin()
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                     });
