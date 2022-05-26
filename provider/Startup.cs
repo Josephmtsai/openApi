@@ -25,6 +25,16 @@ namespace provider
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowHostList",
+                    policy =>
+                    {
+                        policy.WithOrigins("*")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                    });
+            });
             services.AddHttpClient<GitHubService>();
             services.AddMvc(options =>
             {
@@ -56,7 +66,7 @@ namespace provider
             app.UseHttpsRedirection();
             app.UseMiddleware<RequestLogMiddleware>();
             app.UseRouting();
-
+            app.UseCors("AllowHostList");
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
